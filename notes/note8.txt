@@ -1,0 +1,16 @@
+AD3D9:
+/src/trace/D3DDriver/AD3D9/
+there is a ShaderTranslator source code is under it.
+
+
+there are some sample HLSL code under
+Dropbox/Project/D3D_ShaderTranslator/Test
+
+
+HLSL	(Dropbox/Project/D3D_ShaderTranslator/Test)
+ |	(hlsl2glsl-bin-win32)
+GLSL	(sample.glsl)
+ |	(our llvm compiler)
+???
+
+

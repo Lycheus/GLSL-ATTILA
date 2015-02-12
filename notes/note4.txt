@@ -1,0 +1,68 @@
+a diagram for how ATTILA work to render frames
+
+(program)     	  	      	eg. maze.exe
+   |
+[opengl32.dll]			tracefile
+   |
+(glAPI)				eg. triangle.txt
+   |
+[gl2attila][GLTraceDriver]	translate GL to AGP // gl2attila calls GLTraceDriver to translate GL function into target AGP commands
+   |
+(attila binary)			eg. attila.tracefile.gz
+   |
+[bGPU-Uni]			Attila simulator
+   |
+(rendered frames)		eg. frame000.sim.ppm
+
+my approach:
+   gl2attila:
+	find how it translate the glAPI codes.
+
+   	If we can translate our shader language/shader commands into attila's form
+   	at the stage of gl2attila for example like making a translate tool NSYSU2attila
+   	and find the coherent command of the two architecture.
+
+	This might be the easiest way because we don't have to touch the Attila architecture, instead we just
+	change the configure file to match ours (bGPU.ini)
+
+	Problem is, gl2attila is translating glAPI to AGP and what we want to do is change our shadercode to AGP
+	Can it be match?
+
+   bGPU-Uni:
+	dump the op code it execute.
+   	(need to find the code list)
+
+WARNING!
+OK, I went a little wrong way. I shall just let gl2attila translate GL1.0 by their own way.
+And focus on how they compile the GL2.0 (GLSL code) and match up the code our compiler generated.
+
+the goal is to make a "coverter" that can translate our compiler result to attila readable execuable.
+How to do that, and where to start?
+
+hmm....
+
+start from the glAPI call named "glBindProgramARB" and "glProgramStringARB" "glGenProgramsARB" especially "glProgramStringARB" this one.
+test trace code "bunny" has glProgram inside it, better start test from there
+
+a word comes up "FP1grammar.y" looks like this is the yacc program that compile fragment shader code?
+
+continue from bunny change the shader code inside and see if picture is different
+
+---
+done some research
+ATTila simulator trace ARBprogram which supported in OpenGL 1.4+
+The programmable shader idea isn't start before OpenGL 2.0
+before 2.0 the programmable vertex/fragment shaders are only at ARB(assembly) level
+but after OpenGL2.0 which introduce the idea of Shader Language/Object and enlevel to a high level language programming ability.
+
+in fact, GLSL code are compile into ARBprogram
+so it is kinda assembly level of GLSL program (ProgramARB, ProgramNV, ProgramEXT(ATi))
+
+---
+
+1. Write a Maze program. (coded in c++ by myself)
+2. Compile the GLSL into ARBprogram. (using our compiler)
+3. Compile ARBprogram to ATTila binary.  (gl2attila)
+4. run on ATTila simulator and render a frame. (bGPU-Uni)
+
+in step 2, you can either match our compiler to attila format or change attila format to ours.

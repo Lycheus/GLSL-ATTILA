@@ -1,0 +1,185 @@
+body
+{
+	margin: 0;
+	background-color: #efefef;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: smaller;
+}
+
+h1, h2, h3, h4
+{
+	margin-top: 0.1em;
+	margin-bottom: 0.1em;
+}
+
+h1
+{
+	font-size: 160%;
+}
+
+h2
+{
+	font-size: 120%;
+}
+
+a:link
+{
+	color: #0000dd;
+}
+
+a:visited
+{
+	color: #000088;
+}
+
+a:hover
+{
+	color: #5555ff;
+}
+
+td
+{
+	vertical-align: top;
+}
+
+#title
+{
+	position: relative;
+	margin: auto;
+	padding: 8px 0 2px 16px;
+	background-color: #404040;
+	text-shadow: black 1px 1px 4px;
+}
+
+#title h1, #title a:link, #title a:visited
+{
+	background-color: transparent;
+	color: white;
+	text-decoration: none;
+}
+
+#title a:hover
+{
+	text-decoration: underline;
+}
+
+#menu
+{
+	padding: 8px 0 0 8px;
+	background-color: #404040;
+	color: white;
+	font-weight: bold;
+	text-shadow: black 1px 1px 2px;
+	cursor: default;
+}
+
+#menu a:link, #menu a:visited
+{
+	display: inline-block;
+	padding: 4px 16px 4px 16px;
+	border: solid 1px #303030;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	background-color: #505050;
+	-webkit-transition: background-color 0.2s;
+	-moz-transition: background-color 0.2s;
+	-o-transition: background-color 0.2s;
+	color: white;
+	text-decoration: none;
+}
+
+#menu a:hover
+{
+	background-color: #707070;
+	color: white;
+}
+
+#content
+{
+	position: relative;
+	min-height: 400px;
+	padding: 16px;
+	border-bottom: solid 1px #cfcfcf;
+	background-color: white;
+	color: inherit;
+}
+
+#footer p
+{
+	float: left;
+	margin: 0;
+	padding: 16px;
+	font-size: 85%;
+}
+
+#footer img
+{
+	float: right;
+	padding: 8px;
+}
+
+li p
+{
+	margin: 0.25em 0 1em 0;
+}
+
+.CodeDisplay
+{
+	overflow: auto;
+	visibility: hidden;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	width: 600px;
+	height: 300px;
+	padding: 8px;
+	border: solid 2px #505050;
+	background-color: white;
+	color: black;
+	z-index: 1;
+}
+
+pre
+{
+	font-size: 8pt;
+	padding-left: 1em;
+	border-left: solid 2px black;
+}
+
+table.BorderedTable
+{
+	border-collapse: collapse;
+}
+
+table.BorderedTable th, table.BorderedTable td
+{
+	padding: 4px;
+	border: solid 1px black;
+}
+
+@media print
+{
+	body, #title, #title a:link, #title a:visited
+	{
+		background-color: white;
+		color: black;
+	}
+
+	#title
+	{
+		text-shadow: none;
+	}
+
+	#content
+	{
+		border: none;
+	}
+
+	.noPrint, #menu, #footer img, .CodeDisplay
+	{
+		display: none;
+	}
+}

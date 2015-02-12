@@ -1,0 +1,49 @@
+Change following file "isatty" into "_isatty" which is vc8 supported
+/src/extern-libs/libpng-1.4.0/contrib/gregbook/wpng.c:#  include <io.h>       /* for isatty(), setmode() prototypes */
+./src/extern-libs/libpng-1.4.0/contrib/gregbook/wpng.c:#  include <unistd.h>           /* for isatty() prototype */
+./src/extern-libs/libpng-1.4.0/contrib/gregbook/wpng.c:        if (isatty(0)) {
+
+
+./src/extern-libs/DXInterceptorLibs/lzo2/miniacc.h:ACCLIB_EXTERN(int, acc_isatty) (int);
+./src/extern-libs/DXInterceptorLibs/lzo2/miniacc.h:ACCLIB_PUBLIC(int, acc_isatty) (int fd)
+./src/extern-libs/DXInterceptorLibs/lzo2/miniacc.h:    return (isatty(fd)) ? 1 : 0;
+./src/extern-libs/DXInterceptorLibs/lzo2/miniacc.h:    if (isatty(1)) __set_binmode(stdout, 0);
+./src/extern-libs/DXInterceptorLibs/lzo2/miniacc.h:    if (isatty(2)) __set_binmode(stderr, 0);
+
+
+./src/trace/ACDX/Implementation/ARBCompilers/VertexProgram/ACDXVP1Flex.gen:extern int isatty (int );
+./src/trace/ACDX/Implementation/ARBCompilers/VertexProgram/ACDXVP1Flex.gen:        b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
+Binary file ./src/trace/ACDX/Implementation/ARBCompilers/VertexProgram/ACDXVP1ExecEnvironment.o matches
+
+
+./src/trace/ACDX/Implementation/ARBCompilers/FragmentProgram/ACDXFP1Flex.gen:extern int isatty (int );
+./src/trace/ACDX/Implementation/ARBCompilers/FragmentProgram/ACDXFP1Flex.gen:        b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
+Binary file ./src/trace/ACDX/Implementation/ARBCompilers/FragmentProgram/ACDXFP1ExecEnvironment.o matches
+Binary file ./src/trace/GLLib/ARBP/VertexProgram/VP1ExecEnvironment.o matches
+
+
+./src/trace/GLLib/ARBP/VertexProgram/VP1Flex.gen:extern int isatty (int );
+./src/trace/GLLib/ARBP/VertexProgram/VP1Flex.gen:        b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
+Binary file ./src/trace/GLLib/ARBP/FragmentProgram/FP1ExecEnvironment.o matches
+./src/trace/GLLib/ARBP/FragmentProgram/FP1Flex.gen:extern int isatty (int );
+./src/trace/GLLib/ARBP/FragmentProgram/FP1Flex.gen:        b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
+
+--------------------------------------------------------------------------------
+move d3d9.h d3d9types.h d3dcaps.h d3d9_port.h headers into "C:\Program Files\Visual Studio 8\VC\include\"
+--------------------------------------------------------------------------------
+install bison and flex for windows
+
+move the flex/bison "gnuWin32" folder to C:\    (because space will make some trouble)
+
+change mycomputer->properties->global enviroment->system PATH into 
+;C:\gnuWin32\bin\;
+--------------------------------------------------------------------------------
+download DX SDK summer 2004
+move d3d9*.h into "C:\Program Files\Visual Studio 8\VC\include\"
+move d3d9*.lib into "C:\Program Files\Visual Studio 8\VC\lib\"
+
+--------------------------------------------------------------------------------
+
+Do DX9 has goto?
+
+You can think HLSL as a C language for GPU programming except there are no pointer, union, bitwise operations, and function variables. There are no goto, switch, recursive function in HLSL as well. However HLSL adds vector data type, build-in constructor, swizzling and masking operators. HLSL standard library includes mathematical functions and texture processing functions. The function overloading has been used to unify the operations of different vectors. 

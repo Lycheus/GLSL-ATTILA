@@ -1,0 +1,48 @@
+Shader code is compiled by gl2attila (because there is no code inside the output file).
+Isn't there shall be some kind of GL function call like "glCompile"?
+/src/trace/ACDX/Implementation/ARBCompilers
+
+https://attila.ac.upc.edu/wiki/index.php/Driver
+
+AD3D9:
+/src/trace/D3DDriver/AD3D9/
+
+there is a ShaderTranslator under it
+
+
+Here are how Attila load ASM by using the Attila Common Driver Layer (AOGL/D3D)
+[lycheus@localhost trace]$ find . | xargs grep "setProgram"
+./ACD/Interface/ACDShaderProgram.h:    virtual void setProgram(acd_ubyte *attilaASM) = 0;
+Binary file ./ACD/Implementation/ACDShaderProgramImp.o matches
+./ACD/Implementation/ACDShaderProgramImp.cpp:void ACDShaderProgramImp::setProgram(acd_ubyte *attilaASM)
+./ACD/Implementation/ACDShaderProgramImp.cpp://printf("ACDShaderProgramImp::setProgram => program binary\n");
+./ACD/Implementation/ACDShaderProgramImp.cpp://printf("ACDShaderProgramImp::setProgram => program asm\n");
+./ACD/Implementation/ACDShaderProgramImp.h:    virtual void setProgram(acd_ubyte *attilaASM);
+./ACD/Implementation/ACDDeviceImp.cpp:    _defaultVshProgram->setProgram(defaultVSh);
+./ACD/Implementation/ACDDeviceImp.cpp:    _defaultFshProgram->setProgram(defaultFSh);
+./ACD/Implementation/ACDDeviceImp.cpp:    vertexProgram->setProgram(vertexShader);
+./ACD/Implementation/ACDDeviceImp.cpp:    fragmentProgram->setProgram(fragmentShader);
+./ACD/Implementation/ACDDeviceImp.cpp:    vertexProgram->setProgram(vertexShader);
+./ACD/Implementation/ACDDeviceImp.cpp:    fragmentProgram->setProgram(fragmentShader);
+./D3DDriver/AD3D9/AD3D9State.cpp~:    ACDVertexShader->setProgram(vertexShader);
+./D3DDriver/AD3D9/AD3D9State.cpp~:    ACDFragmentShader->setProgram(fragmentShader);
+./D3DDriver/AD3D9/AD3D9State.cpp:    ACDVertexShader->setProgram(vertexShader);
+./D3DDriver/AD3D9/AD3D9State.cpp:    ACDFragmentShader->setProgram(fragmentShader);
+
+
+now I have:
+gl2attila (trace source)
+...
+Compiler of ARBProgram
+...
+ACDDriver (reciever)
+
+
+OK
+NOW
+WHAT I HAVE TO DO
+IS MAKING A...
+
+our GLSL compiler generated executable translator back to HLSL tools
+
+I might start from a C executable back transfer.

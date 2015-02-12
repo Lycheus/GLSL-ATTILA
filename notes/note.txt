@@ -1,0 +1,37 @@
+Makefile notes
+1. Copy needed file one by one to the folder it need.
+2. include <stdio.h> for files that need sprintf
+3. modify Makefile where FLAGS using -static -static-libc++ 
+   (@ means dont show on console, you can cancel it to see the compilation commands)
+   (-lm -lc -lstdc++ not found.)
+4. It will need a folder "Gen" under ./src/trace/utils/
+
+5.
+ARBP/VertexProgram/VP1Grammar.y:751.26-27: $$ for the midrule at $1 of `vtxOptWeightNum' has no declared type
+
+Implementation/ARBCompilers/VertexProgram/ACDXVP1Grammar.y:751.26-27: $$ for the midrule at $1 of `vtxOptWeightNum' has no declared type
+
+(I changed it from {$$ = 0;} to integer					
+
+6. You have to manually install zlib and then libpng to let -lz -lpng works
+
+7. libpng is kinda tricky using default Makefile, I suggest 
+   cp ./script/makefile.gcc Makefile
+   Makefile all
+
+   remember to move the libz.a and libpng.a to ATTILA root/lib folder
+
+ATTila tracefile tracing notes
+1. glBindProgramARB
+   void glBindProgramARB(GLenum target, GLuint program);
+   
+   target = vertex shader or fragment shader
+   program = name of the shader
+
+2. glProgramStringARB
+   void glProgramStringARB(GLenum target, GLenum format, GLsizei len, const GLvoid *string);
+
+
+opengl32.dll can be generate from Microsoft Visual Stuio 2010 on my computer by just build the opengl project
+Because of above situation, I have to trace the tracefile from Windows Enviroment and then put the tracefile
+back to Linux enviroment and run the simulation.

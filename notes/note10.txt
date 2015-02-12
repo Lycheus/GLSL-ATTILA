@@ -1,0 +1,93 @@
+everything is in GPUDriver.h and GPUDriver.cpp
+translatesShaderProgram
+assembleShaderProgram
+
+glCreateShader(GL_VERTEX_SHADER)=NOT TRACED
+glCreateShader(GL_FRAGMENT_SHADER)=NOT TRACED
+glCreateProgram()=NOT TRACED
+glGetUniformLocation(33,U0x1244412)=NOT TRACED
+glGetUniformLocation(33,U0x1244412)=NOT TRACED
+wglSwapBuffers(3842050832)=NOT TRACED
+
+-----------------------------------------------
+Now the problem seperate into two parts:
+First is the OpenGL functions.
+Another is the GLSL to ARB program translation.
+
+util/GL/OGL_functions_supported_by_bGPU.h
+
+glVertexAttribPointer problem can be solve by using
+glVertexAttribPointerARB, if I can force the previous recognized as ARB
+then I dont have to implement the new one.
+
+So all I have to do is to see how VertexAttribPointerARB work and when tracing
+change the traced glVertexAttribPointer into glVertexAttribPointerARB
+
+same things happen to glVertexAttribArray();
+recognize it as glVertexAttribArrayARB();
+
+-----------------------------------------
+List of functions that needed to make red_cube work
+
+*****Solved by GLSL to ARB converter*******
+glCreateShader(GL_VERTEX_SHADER)=1
+glShaderSource(2,1,U0x1244388,U0x1244392)
+glCompileShader(1)
+glCreateProgram()=3
+glAttachShader(3,1)
+glLinkProgram(3)
+glUseProgram(3)
+
+*****Solved by Env,Local, Parameter GL function call******
+glBindAttribLocation(3,0,U0x1244392)
+glGetUniformLocation(3,U0x1244412)=0
+glUniformMatrix4fv(0,1,0,{0x3f800000,0x0,0x0,0x0})
+glGetUniformLocation(3,U0x1244412)=65536
+glUniform4f(65536,0x3f800000,0x0,0x0,0x0)
+
+*****Replace it by glVertexAttribPointerARB******
+glVertexAttribPointer(0,3,GL_FLOAT,0,0,U0x1244412)
+glEnableVertexAttribArray(0)
+
+
+-------------------------------------------
+
+GLAPI void GLAPIENTRY glProgramEnvParameter4fvARB (GLenum target, GLuint index, const GLfloat *params);
+
+GLAPI void GLAPIENTRY glProgramLocalParameter4fARB (GLenum target, GLuint index,
+                                                  GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+
+GLAPI void GLAPIENTRY glProgramLocalParameter4fvARB (GLenum, GLuint, const GLfloat *v);
+
+--------------------------------------------
+
+glBindAttribLocation
+glVertexAttribPointer(0,3,GL_FLOAT,0,0,U0x1637564)
+glEnableVertexAttribArray(0)
+glGetUniformLocation
+glUniformMatrix4fv
+glGetUniformLocation
+glUniform4f
+
+void glBindAttribLocation(	GLuint		program,
+     				GLuint  	index,
+     				const GLchar * 	name);
+
+--------------------------------------------------------
+
+I disable the GLInterceptor dependency on "codegeneration"
+remember to reopen it when needed.
+
+--------------------------------------------------------
+
+Change the GLWrapper.cpp function glGetUniformLocation
+the original trace interept is
+glGetUniformLocation(3,U0x1244488)=65536
+we modify it so it can put the string instead the address of the string
+glGetUniformLocation(3,Color_RGB)=65536
+
+--------------------------------------------------------
+
+Disable the assembler & bGPU-emu optimization if it complain about the 
+register is uninitial.
+

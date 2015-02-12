@@ -1,0 +1,36 @@
+!!ARBfp1.0
+
+OUTPUT output = result.color;
+TEMP normal, lightVec, viewVec, reflVec, diffuse, specular, light;
+
+PARAM specExp = 32;
+PARAM base = { 1, 0.7, 0, 0 };
+
+
+TEX             normal, fragment.texcoord[0], texture[0], 2D;
+MAD             normal, normal, 2, -1;
+
+DP3             normal.w, normal, normal;
+RSQ             normal.w, normal.w;
+MUL             normal, normal, normal.w;
+
+DP3             lightVec.w, fragment.texcoord[1], fragment.texcoord[1];
+RSQ             lightVec.w, lightVec.w;
+MUL             lightVec, fragment.texcoord[1], lightVec.w;
+
+DP3             viewVec.w, fragment.texcoord[2], fragment.texcoord[2];
+RSQ             viewVec.w, viewVec.w;
+MUL             viewVec, fragment.texcoord[2], viewVec.w;
+
+DP3             reflVec, viewVec, normal;
+MUL             reflVec, reflVec, normal;
+MAD             reflVec, reflVec, 2, -viewVec;
+
+DP3_SAT diffuse, lightVec, normal;
+DP3_SAT specular, reflVec, lightVec;
+POW             specular, specular.x, specExp.x;
+
+MAD             light, diffuse, base, specular;
+MAD             output, base, 0.1, light;
+
+END

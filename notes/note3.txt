@@ -1,0 +1,12 @@
+Talked about the purpose of the simulator
+1. To do Profiling: 
+There are much more things that can be done for the compiler and shader
+code, but we need something to convince the hardware team it is worth to do it.
+Thus we need to test out theroy first before implement it. So we need Simulator to verify it.
+
+Like the order of the objects, the objects closer to us can be process earlier, thus
+the compiler generate some codes that can give hints for the object order.
+
+2. The easier way for it will be making a program translate table to 
+
+3. The short goal will be making a maze and can run on the simulator.

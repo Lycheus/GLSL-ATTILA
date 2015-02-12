@@ -1,0 +1,25 @@
+1. opengl32.dll generate
+   opengl32.dll is generate from CLInterceptor.cpp which open 
+   GLIconfig.ini for setting and record the GLcalls write to the tracefile.txt
+   and then execute it in real calls.
+
+   some program will use opengl32.dll in its folder first (industry standard?)
+   but for those who don't you'll need to replace the real opengl32.dll
+   in /system folder.
+
+2. how it work
+3. GLwrapper
+   Most of the code are generate from .gen file which is automatically parse
+   from another file (opengl32.def maybe?) and included from standard opengl
+   lib (mesaGLUT?)
+
+4. our Architecture vs ATTILA
+   This part is way too big for me to solo.
+   I need some help and times to figure all of them out.
+   mostly because I'm not familier with a GPU architecture
+   thus I'll lost orientation when tracing the codes.
+
+5. GLSL(IR form) code extraction
+   on Server Desktop, I dig out the ARB program from QUAKE4 tracefile
+   1143 lines but I dont think it contains complex motion or
+   heavy load process.

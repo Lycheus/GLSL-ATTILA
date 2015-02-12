@@ -1,0 +1,78 @@
+essencial files: gl2attila, AGPTransacton, GLTraceDriver
+
+?? where is it ??
+trace/utils/TraceReader/
+GLExec gle ///< OpenGL command manager ( executes ogl commands in a tracefile ) 
+?? 
+
+gl2attila.cpp
+
+trDriver: (GLTraceDriver or D3DTraceDriver)
+This comes from GLTraceDriver or D3DtraceDriver
+trDriver is the one have the function "nextAGPTransaction()"
+(This one is the trace driver that load file and call AGPTransaction to "generate" the transaction.)
+(inside this, there is GLExec that will "execute" the ogl commands in tracefile)
+(How does it work?)
+
+
+AGPTransaction *nextAGPTransaction
+nextAGPTransaction = trDriver->nextAGPTransaction();
+(AGPTransaction has many constructor to cooperate with difference API trace call.)
+
+
+here is where AGPTransaction class declaration which fields will be fill from the trace to the transaction.
+
+    AGPComm agpTrans;       /**<  Type of this AGP Transaction.  */
+    u32bit address;         /**<  AGP transaction destination address.  */
+    u32bit size;            /**<  Size in bytes of the transmited data.  */
+    u8bit *data;            /**<  Pointer to the transmited data.  */
+    GPURegister gpuReg;     /**<  GPU register from which read or write.  */
+    GPURegData  regData;    /**<  Data to read/write from the GPU register.  */
+    u32bit subReg;          /**<  GPU register subregister address.  */
+    GPUCommand gpuCommand;  /**<  GPU control command.  */
+    u32bit numPackets;      /**<  Number of AGP packets for this transaction.  */
+    bool locked;            /**<  Flag marking the transaction must wait until the next batch has finished.  */
+    u32bit md;              /**<  Memory descriptor associated with the register write (Used to help parsing AGP Transaction traces).  */
+    GPUEvent gpuEvent;      /**<  GPU event.  */
+
+/**  Defines the different kind of transactions that go through the APG port.  */
+enum AGPComm
+{
+    AGP_WRITE,      /**<  AGP write from system memory (system to local).  */
+    AGP_READ,       /**<  AGP read to system memory (local to system).  */
+    AGP_PRELOAD,    /**<  Preload data into system or gpu memory.  */
+    AGP_REG_WRITE,  /**<  AGP write access to GPU registers.  */
+    AGP_REG_READ,   /**<  AGP read access to GPU registers.  */
+    AGP_COMMAND,    /**<  AGP control command to the GPU Command Processor.  */
+    AGP_INIT_END,   /**<  Marks the end of the initialization phase.  */
+    AGP_EVENT       /**<  Signal an event to the GPU Command processor.  */
+};
+
+for example the register Write transaction will be like
+/**                                                                                                                                              
+*                                                                                           
+*  AGP Transaction constructor function.                                                                                                        
+*  AGP Write to a GPU register.                                                             
+*                                                                                                                                               
+*  @param gpuReg  The register identifier where to write.                                   
+*  @param subReg The subregister number where to write.                                                                                         
+*  @param regData The data to write in the register.                                        
+*  @param md Identifier of the memory descriptor (GPU driver) associated with this AGP transaction.                                             
+*                                                                                           
+*  @return An initialized AGP Transaction object.                                                                                               *                                                                                           */    
+
+AGPTransaction(GPURegister gpuReg, u32bit subReg, GPURegData regData, u32bit md);
+
+/*  AGP Transaction constructor.  For register write operations.  */
+AGPTransaction::AGPTransaction(GPURegister gpuR, u32bit subR, GPURegData rData, u32bit _md):
+
+    /*  Set object attributes.  */
+    agpTrans(AGP_REG_WRITE), gpuReg(gpuR), subReg(subR), regData(rData), md(_md),
+    numPackets(1), locked(false)
+
+{
+    /*  Set object color for tracing.  */
+    setColor(AGP_REG_WRITE);
+    setTag("AGPTr");
+
+}

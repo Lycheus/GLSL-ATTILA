@@ -1,0 +1,17 @@
+2013/11/22
+change log:
+MOVE the GLInterceptor from VMWare Windows XP to ESLAB laptop Windows 7
+Modified ATTILA GLInterceptor	 to dump glTexImage2D_SPECIFIC width & height
+Modified ATTILA BufferDescriptor to re-enable glDrawElements panic
+Modified GLB	scene.cpp 	 to add the actor back (testing the interceptor above)
+
+Modified ATTILA AGLTextureObject to detect NULL pointer in convertRGBtoRGBA function
+
+
+2013/11/27
+change log:
+Convert 5_6_5 in AGLEntryPointer.cpp
+Makefile Optimization level "fast"
+	 CPU target "core2"
+
+work, but I changed it back...

@@ -1,0 +1,22 @@
+1. Check if ARB support decision making.
+2. Find GLSL compiler to ARBProgram.
+3. And think what can it do to verify our GLSL compiler result?
+
+Google Keyword: ProgramARB GLSL OpenGL1.4 OpenGL2.0 DirectX9Programmable Shader Branch Flow Control
+
+Answer:
+ARB assembly provides no instructions for flow control or branching.
+SGE and SLT may be used to conditionally set or clear vectors or registers.
+
+
+------------------------
+
+Get a DirectX PIX viewer and see if we can get the HLSL code (string format) out from it.
+AMD provide a HLSL to GLSL translator (I think ATTILA has one also)
+
+And there is a GLSL to ARBprogram converter (partial function) provide by nVIDIA named "Cg toolkit"
+
+------------------------
+
+To trace DirectX game code (Starcraft2?)
+and show the HLSL code of it and find tool to translate HLSL -> GLSL (AMD toolkit?)
