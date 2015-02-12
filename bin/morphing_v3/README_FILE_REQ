@@ -1,0 +1,31 @@
+
+ATTILA TRACE
+-----------------------
+tracefile.txt
+MemoryRegions.dat
+BufferDescriptors.dat
+bGPU-emu
+bGPU.ini
+
+LLVM COMPILER
+-----------------------
+nsysuASM.vert (LLVM disassembly)
+nsysuASM.frag (LLVM disassembly)
+vertex.s
+fragment.s
+[GLSL source code].vert
+[GLSL source code].frag
+
+KENNY CONVERTER
+-----------------------
+adjustPCs_vert.awk
+adjustPCs_frag.awk
+
+uniform_table_vs
+uniform_table_fs
+
+traceConverter.sh
+viewport_code_trim.sh
+transcode.sh
+
+asm_mapping

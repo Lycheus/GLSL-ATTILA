@@ -1,0 +1,144 @@
+These files shall under the working folder:
+
+Kenny converter:
+uniform_register.sh
+transcode.sh
+asm_mapping
+attila_reg_table (This table contains the constant register map to uniform name)
+
+LLVM source files:
+vertex.s	(LLVM back-end vertex)
+fragmentfragment.s       (LLVMM back-nt)	
+nsysuASM.vert    (LLVMvertex disassembly)
+nsysuASM.frag	 (LLVM  fragme disassembly)
+
+ATTILA trace files:
+tracefile.txt
+MemoryRegions.dat
+BufferDescriptors.dat
+
+ATTILA tools:
+attilaAssembler (from ./ATTILA/src/tools/attilaASM/)
+
+==================================================
+usage:
+==================================================
+shell_script.sh [vertex.s | fragment.s]
+
+This script grep and sort out the uniform address calculation and load.
+We use this table to create shader compiler table later in asm_mapping program.
+
+--------------------------------------------------
+transcode.sh
+
+A small preprocessor for asm_mapping(converter) to simplify the job.
+This script is run by asm_mapping inside automatically. Running is alone
+can serve as a debugging tool.
+
+NOTE: If you want to run it alone, you shall place disassembly of 
+      attila "final_bin_vertex" & "final_bin_fragmer" into "nsysuASM.vert" & "nsysuASM.frag"
+
+      By default
+      under LLVM compiler folder:
+      ./disassembler final_bin_vertex > nsysuASM.vert
+      ./disassembler final_bin_fragment > nsysuASM.frag
+
+--------------------------------------------------
+asm_mapping [vertex.s | fragment.s] [output.txt]
+
+This is the main program to convert nsysu gpu assembly into attila gpu assembly.
+--------------------------------------------------
+
+vertex.s -> shell_script.sh -> ld_uni_table
+nsysuASM.vert -> transcode.sh -> nsysu2atila.vert
+
+vertex.s -> asm_mapping -> output
+output -> attilaAssembler -> attilaBinary
+
+make all
+./asm_mapping fragment.s output.txt
+cat output.txt
+./attilaAssembler output.txt fragment.s
+
+
+vertex	 i0, i1, i2...are attribute input to vertex shader 
+	 place to r32, r33, r34...(match from attila register to llvm asm register)
+	 
+	 R32-R39 are varying output to fragment shader
+
+fragment R0 color map to ATTILA o1
+	 R1 xy
+	 R2 z
+
+vertex varying R32 first varying ( index 0 )
+       	       R33 second
+
+VERTEX INPUT
+/**
+ *    Vertex Attribute Binding       Components  Underlying State               Register
+ *    ------------------------       ----------  ---------------------------    --------
+ *    vertex.position                (x,y,z,w)   object coordinates             0
+ *    vertex.weight                  (w,w,w,w)   vertex weights 0-3             1
+ *    vertex.weight[n]               (w,w,w,w)   vertex weights n-n+3           1
+ *    vertex.normal                  (x,y,z,1)   normal                         2
+ *    vertex.color                   (r,g,b,a)   primary color                  3
+ *    vertex.color.primary           (r,g,b,a)   primary color                  3
+ *    vertex.color.secondary         (r,g,b,a)   secondary color                4
+ *    vertex.fogcoord                (f,0,0,1)   fog coordinate                 5
+ *    vertex.texcoord                (s,t,r,q)   texture coordinate, unit 0     8
+ *    vertex.texcoord[n]             (s,t,r,q)   texture coordinate, unit n     8 + n
+ *    vertex.matrixindex             (i,i,i,i)   vertex matrix indices 0-3      8 + M
+ *    vertex.matrixindex[n]          (i,i,i,i)   vertex matrix indices n-n+3    9 + M
+ *    vertex.attrib[n]               (x,y,z,w)   generic vertex attribute n     n
+ *
+ *    Where M = MAX_TEXTURE_UNITS_ARB
+ */
+
+VERTEX OUTPUT
+/**
+ *    -----------------------------  ----------  ----------------------------   --------
+ *    Binding                        Components  Description                    Register
+ *    result.position                (x,y,z,w)   position in clip coordinates   POSITION_ATTRIBUTE
+ *    result.color                   (r,g,b,a)   front-facing primary color     COLOR_ATTRIBUTE
+ *    result.color.primary           (r,g,b,a)   front-facing primary color     COLOR_ATTRIBUTE
+ *    result.color.secondary         (r,g,b,a)   front-facing secondary color   COLOR_ATTRIBUTE_SEC
+ *    result.color.front             (r,g,b,a)   front-facing primary color     COLOR_ATTRIBUTE
+ *    result.color.front.primary     (r,g,b,a)   front-facing primary color     COLOR_ATTRIBUTE
+ *    result.color.front.secondary   (r,g,b,a)   front-facing secondary color   COLOR_ATTRIBUTE_SEC
+ *    result.color.back              (r,g,b,a)   back-facing primary color      COLOR_ATTRIBUTE_BACK_PRI
+ *    result.color.back.primary      (r,g,b,a)   back-facing primary color      COLOR_ATTRIBUTE_BACK_PRI
+ *    result.color.back.secondary    (r,g,b,a)   back-facing secondary color    COLOR_ATTRIBUTE_BACK_SEC
+ *    result.fogcoord                (f,*,*,*)   fog coordinate                 5
+ *    result.texcoord                (s,t,r,q)   texture coordinate, unit 0     6
+ *    result.texcoord[n]             (s,t,r,q)   texture coordinate, unit n     6 + n
+ *    result.pointsize               (s,*,*,*)   point size                     6 + M
+ *
+ *    Where M = MAX_TEXTURE_UNITS_ARB
+ */
+
+FRAGMENT INPUT
+/**
+ *   Fragment Attribute Binding      Components  Underlying State               Register
+ *   --------------------------      ----------  ----------------------------   --------
+ *   fragment.position               (x,y,z,1/w) window position                POSITION_ATTRIBUTE
+ *   fragment.color                  (r,g,b,a)   primary color                  COLOR_ATTRIBUTE
+ *   fragment.color.primary          (r,g,b,a)   primary color                  COLOR_ATTRIBUTE
+ *   fragment.color.secondary        (r,g,b,a)   secondary color                COLOR_ATTRIBUTE_SEC
+ *   fragment.fogcoord               (f,0,0,1)   fog distance/coordinate        5
+ *   fragment.texcoord               (s,t,r,q)   texture coordinate, unit 0     6
+ *   fragment.texcoord[n]            (s,t,r,q)   texture coordinate, unit n     6+n
+ */
+
+Solution ot STV: (no longer needed because the LDV/STV is implemented already)
+use Register R32~R99 as a temperory memory stack to simulate the memeory of store
+and keep a table to trace the...How to I know the address it store?
+
+Then I have to extract the value from the register in simulator.
+The simple way is still to add a LD/ST instruction into ATTILA ISA.
+
+
+Final solution to uniform binding:
+output.txt <--> uniform_table <--> attila_reg_table
+
+instruction "xor" is implement as set register to 0 (work for morphing ball but need
+rework to fit generic purpose.)

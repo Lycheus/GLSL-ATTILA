@@ -1,0 +1,12 @@
+./traceConverter.sh
+cd ./converter
+./asm_mapping vertex.s
+./attilaAssembler output.txt vertex.bin
+cp ./vertex.bin ../
+cp ./vertex.bin ./1.bin
+./asm_mapping fragment.s
+./attilaAssembler output.txt fragment.bin
+cp ./fragment.bin ../
+cp ./fragment.bin ./2.bin
+cd ..
+./bGPU-emu tracefile_mod9 5 2

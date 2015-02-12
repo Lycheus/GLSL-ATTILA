@@ -1,0 +1,296 @@
+mov r0, r32
+mov r32, i0
+mov r33, i7
+mov r34, i8
+mov r35, i9
+mov r36, i10
+stv r0, c6, 0
+stv r0, c11, 1
+add r29.x, r0, 0
+nop
+add r29.x, r0, 0
+add r2.x, r0, 1024
+nop
+add r15.w, r0, 1.000000
+nop
+add r15.z, r0, 1.000000
+nop
+add r15.y, r0, 1.000000
+nop
+add r15.x, r0, 1.000000
+nop
+nop
+nop
+nop
+nop
+stv r0, r15, 1024
+nop
+add r15.w, r0, 2.000000
+nop
+add r15.z, r0, 2.000000
+nop
+add r15.y, r0, 2.000000
+nop
+add r15.x, r0, 2.000000
+nop
+nop
+nop
+nop
+nop
+stv r0, r15, 1025
+nop
+add r15.x, r0, 1.000000
+nop
+nop
+nop
+nop
+nop
+stv r0, r15, 1026
+ldv r4.x, r29, 0
+add r5.x, r0, 1
+stpeqi p0, r4.xxxx, r5.xxxx
+jmp p0, 2
+jmp true, 17
+add r4.x, r0, 0
+ldv r29.x, r4, 1
+add r28.x, r0, 0
+mov r16, r34.xyzw
+add r27.x, r0, 1027
+mov r15, r29.xyzw
+tex r43, i8, t0
+mov r16, r43
+add r3.x, r28, r27
+nop
+nop
+nop
+nop
+nop
+stv r3, r16, 0
+jmp true, 221
+add r29.x, r0, 0
+mov r16, r35.xyzw
+mov r28, r16.xyzw
+add r27.x, r0, 1024
+mov r16, r0.xyzw
+mov r26, r16.xyzw
+add r29.x, r29, r27
+ldv r29, r29, 0
+mov r16, r0.xyzw
+mov r17, r16.xyzw
+add r29, r28.xyzw, r29.xyzw
+add r28.x, r2, 13
+mov r15, r29.xyzw
+mov r16, r26.xyzw
+add r15.w, r0, 0.000000
+nop
+mov r17, r15.xyzw
+nop
+mov r16, r15.xyzw
+nop
+mul r15, r15.xyzw, r15.xyzw
+nop
+add r15.x, r15.xyzw, r15.yyzw
+nop
+add r15.x, r15.xyzw, r15.zyzw
+nop
+add r15.x, r15.xyzw, r15.wyzw
+nop
+mov r16, r17.xyzw
+nop
+rsq r48.x, r15.x
+mul r17.x, r17.x, r48.x
+nop
+mov r16.x, r17.yyzw
+nop
+rsq r48.x, r15.x
+mul r16.x, r16.x, r48.x
+nop
+mov r17.y, r16.xxzw
+nop
+mov r16.x, r17.zyzw
+nop
+rsq r48.x, r15.x
+mul r16.x, r16.x, r48.x
+nop
+mov r17.z, r16.xyxw
+nop
+mov r16.x, r17.wyzw
+nop
+rsq r48.x, r15.x
+mul r16.x, r16.x, r48.x
+nop
+mov r17.w, r16.xyzx
+nop
+mov r16, r17.xyzw
+add r4.x, r2, 14
+add r3.x, r0, r28
+nop
+nop
+nop
+nop
+nop
+stv r3, r16, 0
+add r5.x, r2, 15
+add r3.x, r0, r4
+nop
+nop
+nop
+nop
+nop
+stv r3, r16, 0
+ldv r3.x, r2, 13
+mov r4.x, r3.xyzw
+add r3.x, r0, r5
+nop
+nop
+nop
+nop
+nop
+stv r3, r16, 0
+ldv r3.y, r2, 14
+mov r5.x, r3.yyzw
+add r6.x, r0, 0
+add r7.x, r0, 1027
+add r8.x, r0, 0
+ldv r3.z, r2, 15
+mov r9.x, r3.zyzw
+add r10.x, r2, 12
+nop
+nop
+nop
+nop
+nop
+stv r2.x, r4, 12
+add r4.x, r2, 16
+add r11.x, r6, r7
+ldv r11, r11, 0
+ldv r3.x, r8, 1026
+mov r8.x, r3.xyzw
+add r10.x, r0, r10
+ldv r10, r10, 0
+add r3.x, r0, r4
+nop
+nop
+nop
+nop
+nop
+stv r3, r29, 0
+add r12.x, r2, 11
+nop
+nop
+nop
+nop
+nop
+stv r2.x, r5, 11
+add r5.x, r2, 10
+nop
+nop
+nop
+nop
+nop
+stv r2.x, r9, 10
+add r9.x, r0, r12
+ldv r9, r9, 0
+add r3.x, r0, r4
+nop
+nop
+nop
+nop
+nop
+stv r3, r16, 0
+mov r3.xyz, r11.yzww
+nop
+mov r3.w, r10.xyzx
+nop
+mov r4, r3.xyzw
+mov r3.x, r4.wyzw
+nop
+mov r3.yzw, r4.xxyz
+nop
+mov r4, r3.xyzw
+add r10.x, r2, 9
+nop
+nop
+nop
+nop
+nop
+stv r2.x, r8, 9
+add r5.x, r0, r5
+ldv r5, r5, 0
+add r3.x, r6, r7
+nop
+nop
+nop
+nop
+nop
+stv r3, r4, 0
+mov r3.xz, r4.xxyy
+nop
+mov r3.yw, r9.xxyy
+nop
+mov r8, r3.xyzw
+mov r3.xy, r4.zwzw
+nop
+mov r3.zw, r8.xyxy
+nop
+mov r4, r3.xyzw
+mov r3.xy, r4.zwzw
+nop
+mov r3.zw, r4.xyxy
+nop
+mov r4, r3.xyzw
+add r8.x, r0, r10
+ldv r8, r8, 0
+add r3.x, r6, r7
+nop
+nop
+nop
+nop
+nop
+stv r3, r4, 0
+mov r3.xy, r4.zwzw
+nop
+mov r3.zw, r4.xyxy
+nop
+mov r4, r3.xyzw
+mov r3.xyz, r4.yzww
+nop
+mov r3.w, r5.xyzx
+nop
+mov r4, r3.xyzw
+mov r3.xyz, r4.yzww
+nop
+mov r3.w, r4.xyzx
+nop
+mov r4, r3.xyzw
+add r3.x, r6, r7
+nop
+nop
+nop
+nop
+nop
+stv r3, r4, 0
+mov r3.x, r4.wyzw
+nop
+mov r3.yzw, r4.xxyz
+nop
+mov r4, r3.xyzw
+mov r3.xyz, r4.yzww
+nop
+mov r3.w, r8.xyzx
+nop
+mov r4, r3.xyzw
+add r3.x, r6, r7
+nop
+nop
+nop
+nop
+nop
+stv r3, r4, 0
+add r29.x, r0, 0
+add r28.x, r0, 1027
+ldv r2, r28, 0
+mov r2, r43
+add r1, r0, 0.5
+mul r1, r2, r1
+mov o1, r1

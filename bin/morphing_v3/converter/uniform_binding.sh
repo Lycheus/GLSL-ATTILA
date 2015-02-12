@@ -1,0 +1,3 @@
+cat $1 | awk '{for (i=1;i<=NF;i++)if($i~"[.][^01]")break;else if($i~"^[rR]")$i=substr($i,2)}{$1=$1}1'> vertex2
+#cat vertex2 | awk -F "[., @\t]*" '/ADDI.* 0,.*.u.[0-9].[0-9]@ha/{Z[$2]=$4;print;} /ADDI.* 0,.*.u.[0-9].[0-9]@l/; $1=="ADD"{if ($4 in Z) {Z[$2]=Z[$4];delete Z[$4];print}} /LDV/ {split($0,x,"[)(]");if (x[2] in Z) {print;delete Z[x[2]]}} END{for (var in Z) {print var}}'
+cat vertex2 | awk -F "[., @\t]*" '/ADDI.* 0,.*.u.[0-9].[0-9]@ha/{Z[$2]=$4$6;print} $1=="ADD"{if ($4 in Z) {Z[$2]=Z[$4];if ($4 != $2){delete Z[$4]} print}} /LDV/ {split($0,x,"[)(]");if (x[2] in Z) {print;print "$",$2,Z[x[2]];delete Z[x[2]]}} END{for (var in Z) {print var}}' | grep ^\\$ | sed 's/[0-9]$/ &/' > uniform_binding_table
