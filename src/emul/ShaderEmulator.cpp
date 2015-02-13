@@ -2757,9 +2757,11 @@ void ShaderEmulator::shDP4(ShaderInstruction::ShaderInstructionDecoded &shInstr,
     shEmul.writeResult(shInstr, shEmul, result);
 
     // kenny dump dp4 result
+    /*
     cout << __FILE__<< __LINE__ << endl;
     cout << "op1: " << op1 << endl;
     cout << "op2: " << op2 << endl;
+    */
 
     /*  Update ShaderEmulator PC.  */
     shEmul.PCTable[shInstr.getNumThread()]++;
