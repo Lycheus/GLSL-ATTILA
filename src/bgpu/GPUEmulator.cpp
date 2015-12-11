@@ -6049,14 +6049,14 @@ vector<u32bit> shadedIndices;*/
             )
 
 	      //kenny try to dump attribute at GPUEmulator level.
-	      
+	      /*
 	      cout << __FILE__ << __LINE__ << endl;
 		  for(u32bit a = 0; a < MAX_VERTEX_ATTRIBUTES; a++)
                     {
 		      if (state.attributeMap[a] != ST_INACTIVE_ATTRIBUTE)
 			printf("i[%d] = {%f, %f, %f, %f}\n", a, attributes[a][0], attributes[a][1], attributes[a][2], attributes[a][3]);
                     }
-	      
+	      */
 
             //  Check if validation mode is enabled.
             if (validationMode)
@@ -6107,7 +6107,7 @@ vector<u32bit> shadedIndices;*/
             )
 
 	      // kenny dump vertex data after VS transformed
-	      /*
+	      
 	      cout << __FILE__ << __LINE__ << endl;
 	      printf("Vertex Shader output for batch %d index %d : \n", batchCounter, currentIndex);
 	    for(u32bit a = 0; a < MAX_VERTEX_ATTRIBUTES; a++)
@@ -6115,7 +6115,7 @@ vector<u32bit> shadedIndices;*/
 		if (state.outputAttribute[a])
 		  printf("o[%d] = {%f, %f, %f, %f}\n", a, vattributes[a][0], vattributes[a][1], vattributes[a][2], vattributes[a][3]);
 	      }
-	      */
+	      
 	    	  
             //  Add the shaded vertex to the table of shaded vertices.
             vertexList.insert(make_pair(currentIndex, vertex));
