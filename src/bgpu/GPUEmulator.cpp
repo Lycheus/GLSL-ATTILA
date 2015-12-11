@@ -6049,14 +6049,14 @@ vector<u32bit> shadedIndices;*/
             )
 
 	      //kenny try to dump attribute at GPUEmulator level.
-	      /*
+	      
 	      cout << __FILE__ << __LINE__ << endl;
 		  for(u32bit a = 0; a < MAX_VERTEX_ATTRIBUTES; a++)
                     {
 		      if (state.attributeMap[a] != ST_INACTIVE_ATTRIBUTE)
 			printf("i[%d] = {%f, %f, %f, %f}\n", a, attributes[a][0], attributes[a][1], attributes[a][2], attributes[a][3]);
                     }
-	      */
+	      
 
             //  Check if validation mode is enabled.
             if (validationMode)
