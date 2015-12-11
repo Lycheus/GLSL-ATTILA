@@ -1,3 +1,8 @@
+cd ./converter
+make clean
+make all
+cd ..
+cp ../bGPU-emu ./
 ./traceConverter.sh
 cd ./converter
 ./asm_mapping vertex.s

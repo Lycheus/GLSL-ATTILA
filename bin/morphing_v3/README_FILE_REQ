@@ -7,7 +7,7 @@ BufferDescriptors.dat
 bGPU-emu
 bGPU.ini
 
-LLVM COMPILER
+GLSL LLVM COMPILER
 -----------------------
 nsysuASM.vert (LLVM disassembly)
 nsysuASM.frag (LLVM disassembly)
@@ -29,3 +29,7 @@ viewport_code_trim.sh
 transcode.sh
 
 asm_mapping
+
+HOW TO RUN
+-----------------------
+./run_all
